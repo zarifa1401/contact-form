@@ -1,4 +1,4 @@
-export function validateContactform(values){
+export function validateContactForm(values){
     const errors = {};
     const name = String(values?.name || "").trim();
     const email = String(values?.email || "").trim();
@@ -34,7 +34,7 @@ export function validateContactform(values){
     }
 
     return {
-        isvalid: Object.keys(errors).length === 0,
+        isValid: Object.keys(errors).length === 0,
         errors,
         data: {name, email, subject, message},
     };
