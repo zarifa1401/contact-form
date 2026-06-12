@@ -1,36 +1,80 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+\# Full-Stack Contact Form API
 
-## Getting Started
+This project implements a complete frontend contact form and a Node.js/Express backend API to handle form submissions. It supports `GET` and `POST` methods, client/server-side validation, and stores data locally in a `contacts.json` file.
 
-First, run the development server:
+---
+
+## 🚀 How to Run Locally
+
+### 1. Install Dependencies
+
+Ensure you have Node.js installed, then run:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install express cors
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2. Start the Server
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+```bash
+node server.js
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+The server will start on `http://localhost:3000`.
 
-## Learn More
+### 3. View the Frontend
 
-To learn more about Next.js, take a look at the following resources:
+Open `http://localhost:3000` in your browser to see and interact with the form.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🛠 API Documentation & Testing Examples
 
-## Deploy on Vercel
+### 1. Submit a Contact — `POST /api/contacts`
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Accepts a JSON payload and validates that `name`, `email`, and `message` are present.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+**Using `fetch` (Frontend):**
+
+```javascript
+fetch('http://localhost:3000/api/contacts', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({
+    name: "John Doe",
+    email: "john@example.com",
+    subject: "API Test",
+    message: "This is a test message."
+  })
+})
+.then(res => res.json())
+.then(data => console.log(data));
+```
+
+**Using `curl` (Terminal):**
+
+```bash
+curl -X POST http://localhost:3000/api/contacts \
+  -H "Content-Type: application/json" \
+  -d '{"name":"John Doe","email":"john@example.com","subject":"API Test","message":"This is a test message."}'
+```
+
+---
+
+### 2. Get All Contacts — `GET /api/contacts`
+
+Retrieves all submitted contacts from the `contacts.json` file.
+
+**Using `fetch` (Frontend):**
+
+```javascript
+fetch('http://localhost:3000/api/contacts')
+  .then(res => res.json())
+  .then(data => console.log(data));
+```
+
+**Using `curl` (Terminal):**
+
+```bash
+curl http://localhost:3000/api/contacts
+```
